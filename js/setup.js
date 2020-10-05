@@ -30,7 +30,7 @@ const getRandomArrayElement = (array) => {
 const generateWizardsArray = function (count) {
   const result = [];
 
-  for (let i = 0; i < count.length; i++) {
+  for (let i = 0; i < count; i++) {
     result[i] = {
       wizardName: `${getRandomArrayElement(WIZARD_NAMES)} ${getRandomArrayElement(WIZARD_SURNAMES)}`,
       wizardCoatColor: getRandomArrayElement(COAT_COLORS),
@@ -57,7 +57,6 @@ const renderWizards = function (wizards) {
 
   similarListElement.appendChild(fragment);
 };
-
 
 // ===============================================================================================
 const wizards = generateWizardsArray(WIZARDS_QUANTITY);
