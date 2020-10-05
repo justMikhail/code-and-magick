@@ -40,11 +40,10 @@ const generateWizardsArray = function (count) {
   return result;
 };
 
-
-// ===============================================================================================
-
 // Функция генерирует случайных волшебников=======================================================
 const renderWizards = function (wizards) {
+  const fragment = document.createDocumentFragment();
+
   for (let i = 0; i < wizards.length; i++) {
 
     const wizardData = wizards[i];
@@ -59,8 +58,6 @@ const renderWizards = function (wizards) {
   similarListElement.appendChild(fragment);
 };
 
-// Создает новый пустой DocumentFragment=========================================================
-const fragment = document.createDocumentFragment();
 
 // ===============================================================================================
 const wizards = generateWizardsArray(WIZARDS_QUANTITY);
