@@ -40,7 +40,7 @@ const generateWizardsArray = function (count) {
   return result;
 };
 
-const wizards = generateWizardsArray(WIZARDS_QUANTITY);
+
 // ===============================================================================================
 
 // Функция генерирует случайных волшебников=======================================================
@@ -63,6 +63,7 @@ const renderWizards = function (wizards) {
 const fragment = document.createDocumentFragment();
 
 // ===============================================================================================
-renderWizards();
+const wizards = generateWizardsArray(WIZARDS_QUANTITY);
+renderWizards(wizards);
 
 userDialog.querySelector(`.setup-similar`).classList.remove(`hidden`);
