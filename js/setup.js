@@ -8,6 +8,7 @@ const WIZARD_NAMES = [`Иван`, `Хуан Себастьян`, `Мария`, `
 const WIZARD_SURNAMES = [`да Марья`, `Верон`, `Мирабелла`, `Вальц`, `Онопко`, `Топольницкая`, `Нионго`, `Ирвинг`];
 const COAT_COLORS = [`rgb(101, 137, 164)`, `rgb(241, 43, 107)`, `rgb(146, 100, 161)`, `rgb(56, 159, 117)`, `rgb(215, 210, 55)`, `rgb(0, 0, 0)`];
 const EYES_COLORS = [`black`, `red`, `blue`, `yellow`, `green`];
+const FIREBALL_COLORS = [`#ee4830`, `#30a8ee`, `#5ce6c0`, `#e848d5`, `#e6e848`];
 
 const MIN_NAME_LENGTH = 2;
 const MAX_NAME_LENGTH = 25;
@@ -156,3 +157,31 @@ const onSetupInputNameInput = function () {
 setupInputName.addEventListener(`input`, onSetupInputNameInput);
 
 // КАСТОМИЗАЦИЯ мага (цвет элементов)--------------------------------------------------------------------------
+
+const wizardCoat = userSetup.querySelector(`.wizard-coat`);
+const wizardEyes = userSetup.querySelector(`.wizard-eyes`);
+const setupFireball = userSetup.querySelector(`.setup-fireball-wrap`);
+
+const coatColorInput = document.querySelector(`input[name="eyes-color"]`);
+const eyesColorInput = document.querySelector(`input[name="coat-color"]`);
+const fireballColorInput = document.querySelector(`input[name="fireball-color"]`);
+
+wizardCoat.addEventListener(`click`, () => {
+  const newColor = getRandomArrayElement(COAT_COLORS);
+  coatColorInput.value = newColor;
+  wizardCoat.style.fill = newColor;
+});
+
+wizardEyes.addEventListener(`click`, () => {
+  const newColor = getRandomArrayElement(EYES_COLORS);
+  eyesColorInput.value = newColor;
+  wizardEyes.style.fill = newColor;
+});
+
+setupFireball.addEventListener(`click`, () => {
+  const newColor = getRandomArrayElement(FIREBALL_COLORS);
+  fireballColorInput.value = newColor;
+  setupFireball.style.backgroundColor = newColor;
+});
+
+// --------------------------------------------------------------------------------------------------------------
