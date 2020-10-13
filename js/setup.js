@@ -3,18 +3,22 @@
 // КОНСТАНТЫ---------------------------------------------------------------------------------------------
 
 const WIZARDS_QUANTITY = 4;
+
 const WIZARD_NAMES = [`Иван`, `Хуан Себастьян`, `Мария`, `Кристоф`, `Виктор`, `Юлия`, `Люпита`, `Вашингтон`];
 const WIZARD_SURNAMES = [`да Марья`, `Верон`, `Мирабелла`, `Вальц`, `Онопко`, `Топольницкая`, `Нионго`, `Ирвинг`];
 const COAT_COLORS = [`rgb(101, 137, 164)`, `rgb(241, 43, 107)`, `rgb(146, 100, 161)`, `rgb(56, 159, 117)`, `rgb(215, 210, 55)`, `rgb(0, 0, 0)`];
 const EYES_COLORS = [`black`, `red`, `blue`, `yellow`, `green`];
 
-const USER_SETUP = document.querySelector(`.setup`);
-
-const SETUP_OPEN_BUTTON = document.querySelector(`.setup-open`);
-const SETUP_CLOSE_BUTTON = USER_SETUP.querySelector(`.setup-close`);
-const SETUP_INPUT_USERNAME = USER_SETUP.querySelector(`.setup-user-name`);
+const MIN_NAME_LENGTH = 2;
+const MAX_NAME_LENGTH = 25;
 
 // ------------------------------------------------------------------------------------------------------
+
+const userSetup = document.querySelector(`.setup`);
+
+const setupOpen = document.querySelector(`.setup-open`);
+const setupClose = userSetup.querySelector(`.setup-close`);
+const setupInputName = userSetup.querySelector(`.setup-user-name`);
 
 const similarListElement = document.querySelector(`.setup-similar-list`);
 
@@ -69,26 +73,26 @@ renderWizards();
 // Функция, ОТКРЫВАЕТ окно настроек персонажа----------------------------------------------------------------
 
 const openPopup = function () {
-  USER_SETUP.classList.remove(`hidden`);
-  USER_SETUP.querySelector(`.setup-similar`).classList.remove(`hidden`);
+  userSetup.classList.remove(`hidden`);
+  userSetup.querySelector(`.setup-similar`).classList.remove(`hidden`);
 
-  SETUP_CLOSE_BUTTON.addEventListener(`click`, onSetupCloseClick);
-  SETUP_CLOSE_BUTTON.addEventListener(`click`, onSetupCloseEnterPress);
+  setupClose.addEventListener(`click`, onSetupCloseClick);
+  setupClose.addEventListener(`keydown`, onSetupCloseEnterPress);
 
   document.addEventListener(`keydown`, onPopupEscPress);
-  SETUP_INPUT_USERNAME.addEventListener(`keydown`, onInputNameEscPress);
+  setupInputName.addEventListener(`keydown`, onInputNameEscPress);
 };
 
 // Функция, ЗАКРЫВАЕТ окно настроек персонажа----------------------------------------------------------------
 
 const closePopup = function () {
-  USER_SETUP.classList.add(`hidden`);
+  userSetup.classList.add(`hidden`);
 
-  SETUP_CLOSE_BUTTON.removeEventListener(`click`, onSetupCloseClick);
-  SETUP_CLOSE_BUTTON.removeEventListener(`keydown`, onSetupCloseEnterPress);
+  setupClose.removeEventListener(`click`, onSetupCloseClick);
+  setupClose.removeEventListener(`keydown`, onSetupCloseEnterPress);
 
   document.removeEventListener(`keydown`, onPopupEscPress);
-  SETUP_INPUT_USERNAME.removeEventListener(`keydown`, onInputNameEscPress);
+  setupInputName.removeEventListener(`keydown`, onInputNameEscPress);
 };
 
 // ----------------------------------------------------------------------------------------------------------
@@ -127,7 +131,28 @@ const onInputNameEscPress = function (evt) { //
 };
 
 // ОТКРЫТИЕ по клику на аватарке-------------------------------------------------------------------------------
-SETUP_OPEN_BUTTON.addEventListener(`click`, onSetupOpenClick);
 
-// ОТКРЫТИЕ по нажатию Enter на аватарке в фокусе
-SETUP_OPEN_BUTTON.addEventListener(`keydown`, onSetupOpenEnterPress);
+setupOpen.addEventListener(`click`, onSetupOpenClick);
+
+// ОТКРЫТИЕ по нажатию Enter на аватарке в фокусе--------------------------------------------------------------
+
+setupOpen.addEventListener(`keydown`, onSetupOpenEnterPress);
+
+// ВАЛИДАЦИЯ формы ввода имени пользователя
+
+const onSetupInputNameInput = function () {
+  const actionValueLength = setupInputName.value.length;
+
+  if (actionValueLength < MIN_NAME_LENGTH) {
+    setupInputName.setCustomValidity(`Ещё ${MIN_NAME_LENGTH - actionValueLength} симв.`);
+  } else if (actionValueLength > MAX_NAME_LENGTH) {
+    setupInputName.setCustomValidity(`Удалите лишние ${actionValueLength - MAX_NAME_LENGTH} симв.`);
+  } else {
+    setupInputName.setCustomValidity(``);
+  }
+  setupInputName.reportValidity();
+};
+
+setupInputName.addEventListener(`input`, onSetupInputNameInput);
+
+// КАСТОМИЗАЦИЯ мага (цвет элементов)--------------------------------------------------------------------------
